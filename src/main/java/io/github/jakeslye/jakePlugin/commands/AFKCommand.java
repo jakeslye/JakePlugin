@@ -1,5 +1,6 @@
 package io.github.jakeslye.jakePlugin.commands;
 
+import io.github.jakeslye.jakePlugin.ServerPlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -8,17 +9,21 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 public class AFKCommand implements CommandExecutor {
-    public static ArrayList<String> afkPlayers = new ArrayList<>();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player player) {
-            if(afkPlayers.contains(player.getName())) {
-                afkPlayers.remove(player.getName());
+            ServerPlayer SP = ServerPlayer.getPlayer(player.getUniqueId());
+            if(SP.isAFK()) {
+                SP.setAFK(false);
                 player.sendMessage("No longer afk!");
             }else{
-                afkPlayers.add(player.getName());
-                player.sendMessage("Now afk!");
+                if(SP.getLastMove() < 10){
+                    player.sendMessage("You need to not move for ten seconds to go afk.");
+                }else {
+                    SP.setAFK(true);
+                    player.sendMessage("Now afk!");
+                }
             }
         }
         return false;
