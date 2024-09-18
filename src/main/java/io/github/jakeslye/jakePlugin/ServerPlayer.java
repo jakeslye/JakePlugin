@@ -1,5 +1,7 @@
 package io.github.jakeslye.jakePlugin;
 
+import org.bukkit.ChatColor;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.HashMap;
@@ -10,12 +12,14 @@ public class ServerPlayer {
     private UUID uid = null;
     private String name = null;
     private Boolean AFK = false;
+    private String tag = null;
 
     private static final HashMap<String, ServerPlayer> Players = new HashMap<String, ServerPlayer>();
 
     public ServerPlayer(UUID uid, String name) {
         this.uid = uid;
         this.name = name;
+        this.lastMove = Instant.now();
 
         Players.put(uid.toString(), this);
     }
@@ -35,6 +39,15 @@ public class ServerPlayer {
     public long getLastMove() {
         Duration timeElapsed = Duration.between(lastMove, Instant.now());
         return timeElapsed.getSeconds();
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+        JakePlugin.instance.getServer().getPlayer(this.uid).setPlayerListName(org.bukkit.ChatColor.RED +  "[" + tag + "] " + ChatColor.WHITE + name);
+    }
+
+    public String getTag() {
+        return tag;
     }
 
     public UUID getUID(){

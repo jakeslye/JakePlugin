@@ -5,6 +5,8 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import io.github.jakeslye.jakePlugin.commands.AFKCommand;
+import io.github.jakeslye.jakePlugin.commands.RestartCommand;
+import io.github.jakeslye.jakePlugin.commands.SetTag;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -13,7 +15,8 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 public final class JakePlugin extends JavaPlugin {
 
-    public static String title = "Boy Kisser Server";
+    public static String title = "African American Server";
+    public static JakePlugin instance;
 
     public void setHeaderAndFooter(String header, String footer, Player player)
     {
@@ -27,7 +30,12 @@ public final class JakePlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
+
         this.getCommand("afk").setExecutor(new AFKCommand());
+        this.getCommand("restartlater").setExecutor(new RestartCommand());
+        this.getCommand("settag").setExecutor(new SetTag());
+
 
         getServer().getPluginManager().registerEvents(new Listener(), this);
 

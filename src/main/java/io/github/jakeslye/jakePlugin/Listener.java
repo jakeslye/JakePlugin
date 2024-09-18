@@ -17,11 +17,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class Listener implements org.bukkit.event.Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        event.getPlayer().sendMessage(ChatColor.AQUA + "[Server Updates]" + ChatColor.WHITE +  " /afk and tab menu are now improved. Tell me and more features you want added.");
+        event.getPlayer().sendMessage(ChatColor.AQUA + "[Server Updates]" + ChatColor.WHITE +  " Ciaran is a bitch");
         new ServerPlayer(event.getPlayer().getUniqueId(), event.getPlayer().getName());
-        if(event.getPlayer().isOp()){
-            event.getPlayer().setPlayerListName(ChatColor.RED +  "[ADMIN] " + ChatColor.WHITE + event.getPlayer().getDisplayName());
-        }
     }
 
     @EventHandler
@@ -74,8 +71,9 @@ public class Listener implements org.bukkit.event.Listener {
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        if(event.getPlayer().isOp()) {
-            event.setFormat(ChatColor.RED +  "[ADMIN]" + ChatColor.WHITE + " " + event.getFormat());
+        String tag = ServerPlayer.getPlayer(event.getPlayer().getUniqueId()).getTag();
+        if(tag != null) {
+            event.setFormat(ChatColor.RED + "[" + tag + "]" + ChatColor.WHITE + " " + event.getFormat());
         }
     }
 }

@@ -7,3 +7,9 @@ depend: [ProtocolLib]
 commands:
   afk:
     description: lets players go afk
+  restartlater:
+    description: restarts in 2 minutes
+    permission: bukkit.command.op
+  settag:
+    description: sets tag
+    permission: bukkit.command.op
