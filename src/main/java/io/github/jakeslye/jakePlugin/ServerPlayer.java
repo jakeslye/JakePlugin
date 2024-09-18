@@ -13,6 +13,7 @@ public class ServerPlayer {
     private String name = null;
     private Boolean AFK = false;
     private String tag = null;
+    private ChatColor tagColor = ChatColor.WHITE;
 
     private static final HashMap<String, ServerPlayer> Players = new HashMap<String, ServerPlayer>();
 
@@ -41,9 +42,16 @@ public class ServerPlayer {
         return timeElapsed.getSeconds();
     }
 
+    public void setTagColor(ChatColor color) {
+        this.tagColor = color;
+    }
+
+    public ChatColor getTagColor() {
+        return tagColor;
+    }
+
     public void setTag(String tag) {
         this.tag = tag;
-        JakePlugin.instance.getServer().getPlayer(this.uid).setPlayerListName(org.bukkit.ChatColor.RED +  "[" + tag + "] " + ChatColor.WHITE + name);
     }
 
     public String getTag() {

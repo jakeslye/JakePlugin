@@ -7,6 +7,7 @@ import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import io.github.jakeslye.jakePlugin.commands.AFKCommand;
 import io.github.jakeslye.jakePlugin.commands.RestartCommand;
 import io.github.jakeslye.jakePlugin.commands.SetTag;
+import io.github.jakeslye.jakePlugin.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -37,7 +38,13 @@ public final class JakePlugin extends JavaPlugin {
         this.getCommand("settag").setExecutor(new SetTag());
 
 
-        getServer().getPluginManager().registerEvents(new Listener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
+        getServer().getPluginManager().registerEvents(new PlayerMove(), this);
+        getServer().getPluginManager().registerEvents(new BlockBreak(), this);
+        getServer().getPluginManager().registerEvents(new BlockPlace(), this);
+        getServer().getPluginManager().registerEvents(new Damage(), this);
+        getServer().getPluginManager().registerEvents(new PlayerChat(), this);
 
         BukkitScheduler scheduler = Bukkit.getScheduler();
 
